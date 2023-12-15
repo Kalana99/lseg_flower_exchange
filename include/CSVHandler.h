@@ -7,6 +7,7 @@
 #include <string>
 
 class CSVHandler {
+    
 public:
     CSVHandler(const std::string& filename);
 
@@ -17,4 +18,4 @@ private:
     std::string filename;
 };
 
-#endif // CSVHANDLER_H
+#endif
