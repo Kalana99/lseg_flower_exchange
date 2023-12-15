@@ -17,6 +17,6 @@ void ExchangeApp::execute(){
 
     for(size_t i = 0; i < order_lst.size(); ++i){
 
-        order_book_list[order_lst[i].instrument].addOrder(order_lst[i], i);
+        order_book_list[order_lst[i].instrument].addOrder(order_lst[i], ex_report, i);
     }
 }

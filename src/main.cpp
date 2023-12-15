@@ -50,7 +50,16 @@ int main() {
         if (!is_valid) {
             
             // add rejected row to report
-            myApp.ex_report.push_back(ReportEntry(data[i][0], data[i][1], std::stoi(data[i][2]), std::stoi(data[i][3]), std::stod(data[i][4]), static_cast<int>(MyGlobals::STATUS::REJECTED), validator.reason));
+            myApp.ex_report.push_back(ReportEntry(
+                data[i][0], 
+                std::to_string(MyGlobals::ORDER_ID++), 
+                data[i][1], 
+                data[i][2], 
+                data[i][3], 
+                data[i][4], 
+                std::to_string(static_cast<int>(MyGlobals::STATUS::REJECTED)), 
+                validator.reason
+            ));
             std::cout << "Order rejected" << std::endl;
         }
         else{
