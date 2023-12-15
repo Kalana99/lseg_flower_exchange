@@ -1,5 +1,4 @@
-#ifndef ORDER_MANAGER_H
-#define ORDER_MANAGER_H
+#pragma once
 
 #include <iostream>
 #include <string>
@@ -10,17 +9,18 @@
 
 class OrderBook
 {
+
 private:
+
     std::vector<std::vector<std::string>> buyOrder;
     std::vector<std::vector<std::string>> sellOrder;
     int orderCounter;
 
 public:
-    OrderBook() {}
+
+    OrderBook();
     void addOrder(Order entry, int priority_num);
     void displayOrders() const;
     void sellCompare(std::vector<std::string> orderRow);
     void buyCompare(std::vector<std::string> orderRow);
 };
-
-#endif

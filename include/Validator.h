@@ -1,5 +1,4 @@
-#ifndef VALIDATOR_H
-#define VALIDATOR_H
+#pragma once
 
 #include <vector>
 #include <string>
@@ -23,5 +22,3 @@ private:
     bool validate_quantity(int quantity);
     bool validate_price(double price);
 };
-
-#endif

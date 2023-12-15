@@ -1,5 +1,4 @@
-#ifndef REPORTENTRY_H
-#define REPORTENTRY_H
+#pragma once
 
 #include <vector>
 #include <string>
@@ -28,5 +27,3 @@ private:
     void set_transaction_time();
 
 };
-
-#endif

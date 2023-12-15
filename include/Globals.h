@@ -1,5 +1,4 @@
-#ifndef GLOBALS_H
-#define GLOBALS_H
+#pragma once
 
 #include <string>
 #include <set>
@@ -22,5 +21,3 @@ namespace MyGlobals {
 
     extern int ORDER_ID;
 }
-
-#endif

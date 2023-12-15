@@ -1,5 +1,4 @@
-#ifndef CSVHANDLER_H
-#define CSVHANDLER_H
+#pragma once
 
 #include <iostream>
 #include <fstream>
@@ -17,5 +16,3 @@ public:
 private:
     std::string filename;
 };
-
-#endif
