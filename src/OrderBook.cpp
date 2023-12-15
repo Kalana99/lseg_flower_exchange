@@ -10,7 +10,7 @@ void OrderBook::addOrder(Order entry, int priority_num)
     std::string orderId = "ord" + std::to_string(orderCounter++);
     std::vector<std::string> orderRow = {orderId, std::to_string(entry.quantity), std::to_string(entry.price), std::to_string(priority_num)};
 
-    if (entry.side == 2) // sell order
+    if (static_cast<int>(entry.side) == static_cast<int>(MyGlobals::SIDES::SELL)) // sell order
     {
         if (entry.price <= std::stoi(this->buyOrder[0][2]))
         {
@@ -26,7 +26,7 @@ void OrderBook::addOrder(Order entry, int priority_num)
         }
         sellCompare(orderRow);
     }
-    else if (entry.side == 1) // buy order
+    else if (static_cast<int>(entry.side) == static_cast<int>(MyGlobals::SIDES::BUY)) // buy order
     {
         if (entry.price >= std::stoi(this->sellOrder[0][2]))
         {
