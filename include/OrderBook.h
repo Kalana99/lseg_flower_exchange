@@ -6,6 +6,7 @@
 #include <vector>
 
 #include "Order.h"
+#include "Globals.h"
 
 class OrderBook
 {
@@ -16,8 +17,10 @@ private:
 
 public:
     OrderBook() {}
-    void addOrder(Order entry);
+    void addOrder(Order entry, int priority_num);
     void displayOrders() const;
+    void sellCompare(std::vector<std::string> orderRow);
+    void buyCompare(std::vector<std::string> orderRow);
 };
 
 #endif
