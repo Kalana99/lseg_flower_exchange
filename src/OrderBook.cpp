@@ -12,13 +12,35 @@ void OrderBook::addOrder(Order entry, int priority_num)
 
     if (entry.side == 2) // sell order
     {
+        if (entry.price <= std::stoi(this->buyOrder[0][2]))
+        {
+            if (entry.quantity <= std::stoi(this->buyOrder[0][1]))
+            {
+                return; // there' already a buyer for the selling product
+            }
+            else
+            {
+                int tempQty = entry.quantity - std::stoi(this->buyOrder[0][1]);
+                entry.quantity = tempQty;
+            }
+        }
         sellCompare(orderRow);
-        sellOrder.push_back(orderRow);
     }
     else if (entry.side == 1) // buy order
     {
+        if (entry.price >= std::stoi(this->sellOrder[0][2]))
+        {
+            if (entry.quantity <= std::stoi(this->sellOrder[0][1]))
+            {
+                return; // there' already a seller for the buying product
+            }
+            else
+            {
+                int tempQty = entry.quantity - std::stoi(this->sellOrder[0][1]);
+                entry.quantity = tempQty;
+            }
+        }
         buyCompare(orderRow);
-        buyOrder.push_back(orderRow);
     }
 }
 
