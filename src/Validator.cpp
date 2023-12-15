@@ -1,4 +1,5 @@
 #include "Validator.h"
+#include "Globals.h"
 
 Validator::Validator(std::vector<std::string> row) : row(row), reason("empty") {}
 
@@ -53,7 +54,7 @@ bool Validator:: validate_instrument(std::set<std::string> INSTRUMENTS, const st
 // validate side function
 bool Validator:: validate_side(int side) {
 
-    if (side == 1 || side == 2) {
+    if (side == static_cast<int>(MyGlobals::SIDES::BUY) || side == static_cast<int>(MyGlobals::SIDES::SELL)) {
         return true;
     }
     return false;
