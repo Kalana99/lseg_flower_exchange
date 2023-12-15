@@ -44,8 +44,11 @@ void ReportEntry::set_transaction_time() {
     std::time_t currentTime_t = std::chrono::system_clock::to_time_t(currentTime);
     std::tm* localTime = std::localtime(&currentTime_t);
 
+    auto duration = currentTime.time_since_epoch();
+    auto milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(duration) % 1000;
+
     std::ostringstream oss;
-    oss << std::put_time(localTime, "%Y-%m-%d %H:%M:%S");
+    oss << std::put_time(localTime, "%Y%m%d-%H%M%S") << '.' << std::setfill('0') << std::setw(3) << milliseconds.count();
 
     transaction_time = oss.str();
 }
