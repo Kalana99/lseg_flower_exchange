@@ -10,6 +10,7 @@
 #include "Globals.h"
 #include "Order.h"
 #include "ReportEntry.h"
+#include "OrderBook.h"
 
 using namespace std;
 
@@ -36,6 +37,7 @@ int main() {
 
     std::vector<ReportEntry> ex_report = {};
     std::vector<Order> order_lst = {};
+    std::vector<OrderBook> order_book_list = {};
 
     for (size_t i = 0; i < data.size(); ++i) {
 
@@ -56,6 +58,10 @@ int main() {
         }
 
     }
+
+    
+
+
 
     // ####################################################################
 

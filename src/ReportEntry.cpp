@@ -1,6 +1,7 @@
 #include <chrono>
 #include <ctime>
 #include <iomanip>
+#include <sstream>
 
 #include "ReportEntry.h"
 #include "Globals.h"
