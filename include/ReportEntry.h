@@ -18,7 +18,7 @@ public:
     std::string reason;
 
     ReportEntry(std::vector<std::string> row);
-    // ReportEntry(std::string client_order_id, std::string instrument, int side, int quantity, double price, std::string reason);
+    ReportEntry(std::string client_order_id, std::string instrument, int side, int quantity, double price, std::string reason);
 
 };
 
