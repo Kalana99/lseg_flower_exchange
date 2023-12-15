@@ -10,6 +10,8 @@
 #include "Globals.h"
 #include "Order.h"
 #include "ReportEntry.h"
+#include "OrderBook.h"
+#include "ExchangeApp.h"
 
 using namespace std;
 
@@ -34,8 +36,11 @@ int main() {
 
     // validate and populate order list ####################################
 
-    std::vector<ReportEntry> ex_report = {};
-    std::vector<Order> order_lst = {};
+    // std::vector<ReportEntry> ex_report = {};
+    // std::vector<Order> order_lst = {};
+    // std::vector<OrderBook> order_book_list = {};
+
+    ExchangeApp myApp = ExchangeApp();
 
     for (size_t i = 0; i < data.size(); ++i) {
 
@@ -45,17 +50,30 @@ int main() {
         if (!is_valid) {
             
             // add rejected row to report
-            ex_report.push_back(ReportEntry(data[i][0], data[i][1], std::stoi(data[i][2]), std::stoi(data[i][3]), std::stod(data[i][4]), static_cast<int>(MyGlobals::STATUS::REJECTED), validator.reason));
+            myApp.ex_report.push_back(ReportEntry(
+                data[i][0], 
+                std::to_string(MyGlobals::ORDER_ID++), 
+                data[i][1], 
+                data[i][2], 
+                data[i][3], 
+                data[i][4], 
+                std::to_string(static_cast<int>(MyGlobals::STATUS::REJECTED)), 
+                validator.reason
+            ));
             std::cout << "Order rejected" << std::endl;
         }
         else{
 
             // populate valid order list
-            order_lst.push_back(Order(data[i]));
+            myApp.order_lst.push_back(Order(data[i]));
             std::cout << "Order added to valid order list" << std::endl;
         }
 
     }
+
+    
+
+
 
     // ####################################################################
 
