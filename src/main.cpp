@@ -76,9 +76,9 @@ int main() {
 
     myApp.execute();
     
-    for(size_t i = 0; i < myApp.order_lst.size(); ++i){
-        std::cout << myApp.order_lst[i].client_order_id << " " << myApp.order_lst[i].instrument << " "  << myApp.order_lst[i].price << " "  << myApp.order_lst[i].quantity << " "  << myApp.order_lst[i].side << " "  << std::endl;
-    }
+    // for(size_t i = 0; i < myApp.order_lst.size(); ++i){
+    //     std::cout << myApp.order_lst[i].client_order_id << " " << myApp.order_lst[i].instrument << " "  << myApp.order_lst[i].price << " "  << myApp.order_lst[i].quantity << " "  << myApp.order_lst[i].side << " "  << std::endl;
+    // }
 
     for(size_t i = 0; i < myApp.ex_report.size(); ++i){
         std::cout << myApp.ex_report[i].order_id << " " << myApp.ex_report[i].client_order_id << " "  << myApp.ex_report[i].instrument << " "  << myApp.ex_report[i].side << " "  << myApp.ex_report[i].status << " "  << myApp.ex_report[i].quantity << " "  << myApp.ex_report[i].price << " " << myApp.ex_report[i].reason << " "  << myApp.ex_report[i].transaction_time << " "    << std::endl;

@@ -65,7 +65,7 @@ void OrderBook::addOrder(Order entry, std::vector<ReportEntry> &ex_report, int p
                 this->buyOrder.erase(this->buyOrder.begin());
             }
             else
-            {
+            {   
                 // order book entry and both report entry (fill and pfill)
 
                 // int tempQty = entry.quantity - std::stoi(this->buyOrder[0][1]);
@@ -74,8 +74,8 @@ void OrderBook::addOrder(Order entry, std::vector<ReportEntry> &ex_report, int p
                 int temp_qty = entry.quantity;
                 int index = 0;
 
-                while (temp_qty > 0 || buyOrder.size() > 0)
-                {
+                while (temp_qty > 0 && buyOrder.size() > 0)
+                {   
                     if (entry.price <= std::stoi(buyOrder[0][2]))
                     {
                         if (std::stoi(buyOrder[0][1]) <= temp_qty)
@@ -145,7 +145,7 @@ void OrderBook::addOrder(Order entry, std::vector<ReportEntry> &ex_report, int p
                 orderRow = {
                     orderId,
                     std::to_string(temp_qty),
-                    this->buyOrder[0][2],
+                    std::to_string(entry.price),
                     std::to_string(priority_num),
                     entry.client_order_id};
                 sellCompare(orderRow);
@@ -170,6 +170,7 @@ void OrderBook::addOrder(Order entry, std::vector<ReportEntry> &ex_report, int p
                 std::to_string(entry.price),
                 std::to_string(priority_num),
                 entry.client_order_id};
+
             sellCompare(orderRow);
         }
     }
@@ -197,8 +198,8 @@ void OrderBook::addOrder(Order entry, std::vector<ReportEntry> &ex_report, int p
                     std::to_string(entry.price),
                     std::to_string(static_cast<int>(MyGlobals::STATUS::PFILL))));
             }
-            else if (entry.quantity = std::stoi(this->sellOrder[0][1]))
-            {
+            else if (entry.quantity == std::stoi(this->sellOrder[0][1]))
+            {   
                 ex_report.push_back(ReportEntry(
                     entry.client_order_id,
                     orderId,
@@ -220,12 +221,12 @@ void OrderBook::addOrder(Order entry, std::vector<ReportEntry> &ex_report, int p
                 this->sellOrder.erase(this->sellOrder.begin());
             }
             else
-            {
+            {   
                 // int tempQty = entry.quantity - std::stoi(this->sellOrder[0][1]);
                 int temp_qty = entry.quantity;
                 int index = 0;
-
-                while (temp_qty > 0 || sellOrder.size() > 0)
+                
+                while (temp_qty > 0 && sellOrder.size() > 0)
                 {
                     if (entry.price >= std::stoi(sellOrder[0][2]))
                     {
@@ -324,35 +325,49 @@ void OrderBook::addOrder(Order entry, std::vector<ReportEntry> &ex_report, int p
 }
 
 void OrderBook::buyCompare(std::vector<std::string> orderRow)
-{
+{   
+    if(this->buyOrder.size() == 0){
+        this->buyOrder.push_back(orderRow);
+        return;
+    }
+
     int count = 0;
     for (const auto &orderRowVec : this->buyOrder)
     {
-        if (orderRow[2] > orderRowVec[2])
+        if (std::stod(orderRow[2]) > std::stod(orderRowVec[2]))
         {
             auto position = buyOrder.begin() + count;
             buyOrder.insert(position, orderRow);
-            break;
+            return;
         }
 
         count++;
     }
+
+    this->buyOrder.push_back(orderRow);
 }
 
 void OrderBook::sellCompare(std::vector<std::string> orderRow)
 {
+    if(this->sellOrder.size() == 0){
+        this->sellOrder.push_back(orderRow);
+        return;
+    }
+
     int count = 0;
     for (const auto &orderRowVec : this->sellOrder)
     {
-        if (orderRow[2] < orderRowVec[2])
+        if (std::stod(orderRow[2]) < std::stod(orderRowVec[2]))
         {
-            auto position = buyOrder.begin() + count;
-            buyOrder.insert(position, orderRow);
-            break;
+            auto position = sellOrder.begin() + count;
+            sellOrder.insert(position, orderRow);
+            return;
         }
 
         count++;
     }
+
+    this->sellOrder.push_back(orderRow);
 }
 
 void OrderBook::displayOrders() const
