@@ -19,6 +19,19 @@
 //     set_transaction_time();
 // }
 
+ReportEntry::ReportEntry(std::string client_order_id, std::string order_id, std::string instrument, std::string side, std::string quantity, std::string price, std::string status) {
+    
+    this->client_order_id = client_order_id;
+    this->order_id = order_id;
+    this->instrument = instrument;
+    this->side = side;
+    this->quantity = quantity;
+    this->price = price;
+    this->status = status;
+    this->reason = "";
+    set_transaction_time();
+}
+
 ReportEntry::ReportEntry(std::string client_order_id, std::string order_id, std::string instrument, std::string side, std::string quantity, std::string price, std::string status, std::string reason="") {
     
     this->client_order_id = client_order_id;
