@@ -22,7 +22,7 @@ int main() {
 
     // data read ###########################################################
 
-    std::string filename = "samples/orders6.csv";
+    std::string filename = "samples/order7.csv";
 
     CSVHandler csvReader(filename);
     std::vector<std::vector<std::string>> data;
@@ -83,6 +83,8 @@ int main() {
     for(size_t i = 0; i < myApp.ex_report.size(); ++i){
         std::cout << myApp.ex_report[i].order_id << " " << myApp.ex_report[i].client_order_id << " "  << myApp.ex_report[i].instrument << " "  << myApp.ex_report[i].side << " "  << myApp.ex_report[i].status << " "  << myApp.ex_report[i].quantity << " "  << myApp.ex_report[i].price << " " << myApp.ex_report[i].reason << " "  << myApp.ex_report[i].transaction_time << " "    << std::endl;
     }
+
+    std::cout << myApp.ex_report.size() << std::endl;
 
     // ####################################################################
 
