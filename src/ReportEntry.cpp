@@ -6,37 +6,37 @@
 #include "ReportEntry.h"
 #include "Globals.h"
 
-ReportEntry::ReportEntry(std::vector<std::string> row) {
+// ReportEntry::ReportEntry(std::vector<std::string> row) {
     
-    client_order_id = row[0];
-    instrument = row[1];
-    side = std::stoi(row[2]);
-    quantity = std::stoi(row[3]);
-    price = std::stod(row[4]);
-    status = std::stoi(row[5]);
-    reason = (row.size() == 8) ? row[6] : "";
-    set_order_id();
-    set_transaction_time();
-}
+//     client_order_id = row[0];
+//     instrument = row[1];
+//     side = std::stoi(row[2]);
+//     quantity = std::stoi(row[3]);
+//     price = std::stod(row[4]);
+//     status = std::stoi(row[5]);
+//     reason = (row.size() == 8) ? row[6] : "";
+//     set_order_id();
+//     set_transaction_time();
+// }
 
-ReportEntry::ReportEntry(std::string client_order_id, std::string instrument, int side, int quantity, double price, int status, std::string reason="") {
+ReportEntry::ReportEntry(std::string client_order_id, std::string order_id, std::string instrument, std::string side, std::string quantity, std::string price, std::string status, std::string reason="") {
     
     this->client_order_id = client_order_id;
+    this->order_id = order_id;
     this->instrument = instrument;
     this->side = side;
     this->quantity = quantity;
     this->price = price;
     this->status = status;
     this->reason = reason;
-    set_order_id();
     set_transaction_time();
 }
 
-void ReportEntry::set_order_id() {
+// void ReportEntry::set_order_id() {
     
-    order_id = "ord" + std::to_string(MyGlobals::ORDER_ID);
-    MyGlobals::ORDER_ID++;
-}
+//     order_id = "ord" + std::to_string(MyGlobals::ORDER_ID);
+//     MyGlobals::ORDER_ID++;
+// }
 
 void ReportEntry::set_transaction_time() {
     
