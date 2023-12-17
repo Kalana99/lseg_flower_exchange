@@ -1,4 +1,4 @@
 Client Order ID,Instrument,Side,Quantity,Price
 co00,Rose,1,10,100
-co01,Lavender,2,20,80
+co01,Lavender,2,,80
 co02,Lotus,1,30,60

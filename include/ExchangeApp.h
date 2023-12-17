@@ -8,6 +8,7 @@
 #include "Order.h"
 #include "OrderBook.h"
 #include "ReportEntry.h"
+#include "Validator.h"
 
 class ExchangeApp {
 
@@ -16,6 +17,7 @@ public:
     std::vector<ReportEntry> ex_report;
     std::vector<Order> order_lst;
     std::unordered_map<std::string, OrderBook> order_book_list;
+    Validator validator;
 
     ExchangeApp();
     void execute();

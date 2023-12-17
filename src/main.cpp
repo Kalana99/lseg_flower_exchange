@@ -22,7 +22,7 @@ int main() {
 
     // data read ###########################################################
 
-    std::string filename = "samples/orders6.csv";
+    std::string filename = "samples/orders0.csv";
 
     CSVHandler csvReader(filename);
     std::vector<std::vector<std::string>> data;
@@ -47,21 +47,20 @@ int main() {
 
     for (size_t i = 0; i < data.size(); ++i) {
 
-        Validator validator(data[i]);
-        bool is_valid = validator.validate(MyGlobals::INSTRUMENTS);
+        bool is_valid = myApp.validator.validate(data[i]);
 
         if (!is_valid) {
             
             // add rejected row to report
             myApp.ex_report.push_back(ReportEntry(
                 data[i][0], 
-                std::to_string(MyGlobals::ORDER_ID++), 
+                "ord" + std::to_string(MyGlobals::ORDER_ID++), 
                 data[i][1], 
                 data[i][2], 
                 data[i][3], 
                 data[i][4], 
                 std::to_string(static_cast<int>(MyGlobals::STATUS::REJECTED)), 
-                validator.reason
+                myApp.validator.reason
             ));
             std::cout << "Order rejected" << std::endl;
         }
@@ -83,6 +82,8 @@ int main() {
     for(size_t i = 0; i < myApp.ex_report.size(); ++i){
         std::cout << myApp.ex_report[i].order_id << " " << myApp.ex_report[i].client_order_id << " "  << myApp.ex_report[i].instrument << " "  << myApp.ex_report[i].side << " "  << myApp.ex_report[i].status << " "  << myApp.ex_report[i].quantity << " "  << myApp.ex_report[i].price << " " << myApp.ex_report[i].reason << " "  << myApp.ex_report[i].transaction_time << " "    << std::endl;
     }
+
+    // std::cout << myApp.ex_report.size() << std::endl;
 
     // ####################################################################
 

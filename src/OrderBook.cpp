@@ -175,9 +175,9 @@ void OrderBook::addOrder(Order entry, std::vector<ReportEntry> &ex_report, int p
         }
     }
     else if (static_cast<int>(entry.side) == static_cast<int>(MyGlobals::SIDES::BUY)) // buy order - add to buy order book
-    {
+    {   
         if (this->sellOrder.size() > 0 && entry.price >= std::stoi(this->sellOrder[0][2]))
-        {
+        {   
             if (entry.quantity < std::stoi(this->sellOrder[0][1]))
             {
                 ex_report.push_back(ReportEntry(
@@ -206,7 +206,7 @@ void OrderBook::addOrder(Order entry, std::vector<ReportEntry> &ex_report, int p
                     entry.instrument,
                     std::to_string(entry.side),
                     std::to_string(entry.quantity),
-                    std::to_string(entry.price),
+                    this->sellOrder[0][2],
                     std::to_string(static_cast<int>(MyGlobals::STATUS::FILL))));
 
                 ex_report.push_back(ReportEntry(
@@ -215,7 +215,7 @@ void OrderBook::addOrder(Order entry, std::vector<ReportEntry> &ex_report, int p
                     entry.instrument,
                     std::to_string(static_cast<int>(MyGlobals::SIDES::SELL)),
                     std::to_string(entry.quantity),
-                    std::to_string(entry.price),
+                    this->sellOrder[0][2],
                     std::to_string(static_cast<int>(MyGlobals::STATUS::FILL))));
 
                 this->sellOrder.erase(this->sellOrder.begin());

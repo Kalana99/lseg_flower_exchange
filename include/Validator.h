@@ -8,15 +8,13 @@ class Validator {
 
 public:
 
-    std::vector<std::string> row;
     std::string reason;
 
-    Validator(std::vector<std::string> row);
-    bool validate(std::set<std::string> INSTRUMENTS);
+    Validator();
+    bool validate(std::vector<std::string> row);
 
 private:
 
-    bool validate_non_empty(std::vector<std::string> row);
     bool validate_instrument(std::set<std::string> INSTRUMENTS, const std::string& instrument);
     bool validate_side(int side);
     bool validate_quantity(int quantity);

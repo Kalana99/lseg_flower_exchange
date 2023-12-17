@@ -11,6 +11,7 @@ ExchangeApp::ExchangeApp(){
         {"Tulip", OrderBook()},
         {"Orchid", OrderBook()},
     };
+    this->validator = Validator();
 }
 
 void ExchangeApp::execute(){
