@@ -26,7 +26,7 @@ void OrderBook::addOrder(Order entry, std::vector<ReportEntry>& ex_report, int p
                     entry.instrument, 
                     std::to_string(entry.side), 
                     std::to_string(entry.quantity), 
-                    std::to_string(entry.price), 
+                    this->buyOrder[0][2], 
                     std::to_string(static_cast<int>(MyGlobals::STATUS::FILL))
                 ));
 
@@ -36,7 +36,7 @@ void OrderBook::addOrder(Order entry, std::vector<ReportEntry>& ex_report, int p
                     entry.instrument, 
                     std::to_string(static_cast<int>(MyGlobals::SIDES::BUY)), 
                     std::to_string(entry.quantity), 
-                    std::to_string(entry.price), 
+                    this->buyOrder[0][2], 
                     std::to_string(static_cast<int>(MyGlobals::STATUS::PFILL))
                 ));
             }
@@ -50,7 +50,7 @@ void OrderBook::addOrder(Order entry, std::vector<ReportEntry>& ex_report, int p
                     entry.instrument, 
                     std::to_string(entry.side), 
                     std::to_string(entry.quantity), 
-                    std::to_string(entry.price), 
+                    this->buyOrder[0][2], 
                     std::to_string(static_cast<int>(MyGlobals::STATUS::FILL))
                 ));
 
@@ -60,7 +60,7 @@ void OrderBook::addOrder(Order entry, std::vector<ReportEntry>& ex_report, int p
                     entry.instrument, 
                     std::to_string(static_cast<int>(MyGlobals::SIDES::BUY)), 
                     std::to_string(entry.quantity), 
-                    std::to_string(entry.price), 
+                    this->buyOrder[0][2], 
                     std::to_string(static_cast<int>(MyGlobals::STATUS::FILL))
                 ));
 
@@ -93,7 +93,7 @@ void OrderBook::addOrder(Order entry, std::vector<ReportEntry>& ex_report, int p
                                 entry.instrument, 
                                 std::to_string(entry.side), 
                                 std::to_string(entry.quantity),
-                                std::to_string(entry.price), 
+                                this->buyOrder[0][2], 
                                 std::to_string(static_cast<int>(MyGlobals::STATUS::PFILL))
                             ));
 
@@ -103,7 +103,7 @@ void OrderBook::addOrder(Order entry, std::vector<ReportEntry>& ex_report, int p
                                 entry.instrument, 
                                 std::to_string(static_cast<int>(MyGlobals::SIDES::BUY)), 
                                 std::to_string(entry.quantity),
-                                std::to_string(entry.price), 
+                                this->buyOrder[0][2], 
                                 std::to_string(static_cast<int>(MyGlobals::STATUS::FILL))
                             ));
 
@@ -123,7 +123,7 @@ void OrderBook::addOrder(Order entry, std::vector<ReportEntry>& ex_report, int p
                                 entry.instrument, 
                                 std::to_string(entry.side), 
                                 buyOrder[0][1], 
-                                std::to_string(entry.price), 
+                                this->buyOrder[0][2], 
                                 std::to_string(static_cast<int>(MyGlobals::STATUS::FILL))
                             ));
 
@@ -133,7 +133,7 @@ void OrderBook::addOrder(Order entry, std::vector<ReportEntry>& ex_report, int p
                                 entry.instrument, 
                                 std::to_string(static_cast<int>(MyGlobals::SIDES::BUY)), 
                                 buyOrder[0][1], 
-                                std::to_string(entry.price), 
+                                this->buyOrder[0][2], 
                                 std::to_string(static_cast<int>(MyGlobals::STATUS::PFILL))
                             ));
 
@@ -152,7 +152,7 @@ void OrderBook::addOrder(Order entry, std::vector<ReportEntry>& ex_report, int p
                 orderRow = {
                     get_order_id(), 
                     std::to_string(temp_qty), 
-                    std::to_string(entry.price), 
+                    this->buyOrder[0][2], 
                     std::to_string(priority_num),  
                     entry.client_order_id
                 };

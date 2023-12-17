@@ -22,7 +22,7 @@ int main() {
 
     // data read ###########################################################
 
-    std::string filename = "orders2.csv";
+    std::string filename = "samples/orders6.csv";
 
     CSVHandler csvReader(filename);
     std::vector<std::vector<std::string>> data;
@@ -30,15 +30,18 @@ int main() {
     if (csvReader.readCSV(data)) {
 
         std::cout << "Data read successfully" << std::endl;
+
+        // for(size_t i = 0; i < data.size(); ++i){
+        //     for(size_t j = 0; j < data[i].size(); ++j){
+        //         std::cout << data[i][j] << ", ";
+        //     }
+        //     std::cout << std::endl;
+        // }
     }
 
     // ####################################################################
 
     // validate and populate order list ####################################
-
-    // std::vector<ReportEntry> ex_report = {};
-    // std::vector<Order> order_lst = {};
-    // std::vector<OrderBook> order_book_list = {};
 
     ExchangeApp myApp = ExchangeApp();
 
@@ -71,9 +74,15 @@ int main() {
 
     }
 
+    myApp.execute();
     
+    for(size_t i = 0; i < myApp.order_lst.size(); ++i){
+        std::cout << myApp.order_lst[i].client_order_id << " " << myApp.order_lst[i].instrument << " "  << myApp.order_lst[i].price << " "  << myApp.order_lst[i].quantity << " "  << myApp.order_lst[i].side << " "  << std::endl;
+    }
 
-
+    for(size_t i = 0; i < myApp.ex_report.size(); ++i){
+        std::cout << myApp.ex_report[i].client_order_id << " " << myApp.ex_report[i].order_id << " "  << myApp.ex_report[i].instrument << " "  << myApp.ex_report[i].price << " "  << myApp.ex_report[i].quantity << " "  << myApp.ex_report[i].side << " "  << myApp.ex_report[i].status << " " << myApp.ex_report[i].reason << " "  << myApp.ex_report[i].transaction_time << " "    << std::endl;
+    }
 
     // ####################################################################
 
