@@ -19,6 +19,8 @@ void OrderBook::addOrder(Order entry, std::vector<ReportEntry>& ex_report, int p
             if (entry.quantity < std::stoi(this->buyOrder[0][1]))
             {
                 // no orderbook record - add both entries to report (fill and pfill)
+
+                //order book update on the buy column
                 
                 ex_report.push_back(ReportEntry(
                     entry.client_order_id, 
@@ -78,9 +80,9 @@ void OrderBook::addOrder(Order entry, std::vector<ReportEntry>& ex_report, int p
 
                 while (temp_qty > 0 || buyOrder.size() > 0)
                 {
-                    if (entry.price <= std::stoi(buyOrder[0][2]))
+                    if (entry.price <= std::stoi(buyOrder[index][2]))
                     {
-                        if (std::stoi(buyOrder[0][1]) <= temp_qty)
+                        if (std::stoi(buyOrder[index][1]) <= temp_qty)
                         {
                             // buy order book entry remove
                             // buy report entry fill
@@ -189,16 +191,128 @@ void OrderBook::addOrder(Order entry, std::vector<ReportEntry>& ex_report, int p
         {
             if (entry.quantity < std::stoi(this->sellOrder[0][1]))
             {
-                return; // there' already a seller for the buying product
+                ex_report.push_back(ReportEntry(
+                    entry.client_order_id, 
+                    get_order_id(), 
+                    entry.instrument, 
+                    std::to_string(entry.side), 
+                    std::to_string(entry.quantity), 
+                    std::to_string(entry.price), 
+                    std::to_string(static_cast<int>(MyGlobals::STATUS::FILL))
+                ));
+
+                ex_report.push_back(ReportEntry(
+                    this->sellOrder[0].back(), 
+                    this->sellOrder[0][0], 
+                    entry.instrument, 
+                    std::to_string(static_cast<int>(MyGlobals::SIDES::SELL)), 
+                    std::to_string(entry.quantity), 
+                    std::to_string(entry.price), 
+                    std::to_string(static_cast<int>(MyGlobals::STATUS::PFILL))
+                ));
             }
             else if (entry.quantity = std::stoi(this->sellOrder[0][1]))
             {
-                // shouldAdd = false;
+                ex_report.push_back(ReportEntry(
+                    entry.client_order_id, 
+                    get_order_id(), 
+                    entry.instrument, 
+                    std::to_string(entry.side), 
+                    std::to_string(entry.quantity), 
+                    std::to_string(entry.price), 
+                    std::to_string(static_cast<int>(MyGlobals::STATUS::FILL))
+                ));
+
+                ex_report.push_back(ReportEntry(
+                    this->sellOrder[0].back(), 
+                    this->sellOrder[0][0], 
+                    entry.instrument, 
+                    std::to_string(static_cast<int>(MyGlobals::SIDES::SELL)), 
+                    std::to_string(entry.quantity), 
+                    std::to_string(entry.price), 
+                    std::to_string(static_cast<int>(MyGlobals::STATUS::FILL))
+                ));
+
+                this->sellOrder.erase(this->sellOrder.begin());
             }
             else
             {
-                int tempQty = entry.quantity - std::stoi(this->sellOrder[0][1]);
-                entry.quantity = tempQty;
+                //int tempQty = entry.quantity - std::stoi(this->sellOrder[0][1]);
+                int temp_qty = entry.quantity;
+                int index = 0;
+
+                while (temp_qty > 0 || sellOrder.size() > 0)
+                {
+                    if (entry.price >= std::stoi(sellOrder[0][2]))
+                    {
+                        if (std::stoi(sellOrder[index][1]) <= temp_qty)
+                        {
+                            // buy order book entry remove
+                            // buy report entry fill
+                            // sell report entry pfill
+                            // update temp qty
+
+                            ex_report.push_back(ReportEntry(
+                                entry.client_order_id, 
+                                get_order_id(), 
+                                entry.instrument, 
+                                std::to_string(entry.side), 
+                                std::to_string(entry.quantity),
+                                std::to_string(entry.price), 
+                                std::to_string(static_cast<int>(MyGlobals::STATUS::PFILL))
+                            ));
+
+                            ex_report.push_back(ReportEntry(
+                                this->buyOrder[0].back(), 
+                                this->buyOrder[0][0], 
+                                entry.instrument, 
+                                std::to_string(static_cast<int>(MyGlobals::SIDES::BUY)), 
+                                std::to_string(entry.quantity),
+                                std::to_string(entry.price), 
+                                std::to_string(static_cast<int>(MyGlobals::STATUS::FILL))
+                            ));
+
+                            temp_qty -= std::stoi(buyOrder[0][1]);
+                            this->buyOrder.erase(this->buyOrder.begin());
+                        }
+                        else
+                        {
+                            // buy order book entry update
+                            // buy report entry pfill
+                            // sell report entry fill
+                            // temp qty = 0
+
+                            ex_report.push_back(ReportEntry(
+                                entry.client_order_id, 
+                                get_order_id(), 
+                                entry.instrument, 
+                                std::to_string(entry.side), 
+                                buyOrder[0][1], 
+                                std::to_string(entry.price), 
+                                std::to_string(static_cast<int>(MyGlobals::STATUS::FILL))
+                            ));
+
+                            ex_report.push_back(ReportEntry(
+                                this->buyOrder[0].back(), 
+                                this->buyOrder[0][0], 
+                                entry.instrument, 
+                                std::to_string(static_cast<int>(MyGlobals::SIDES::BUY)), 
+                                buyOrder[0][1], 
+                                std::to_string(entry.price), 
+                                std::to_string(static_cast<int>(MyGlobals::STATUS::PFILL))
+                            ));
+
+                            this->buyOrder[0][1] = std::to_string(std::stoi(buyOrder[0][1]) - temp_qty);
+                            temp_qty = 0;
+                        }
+                        
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+
             }
         }
 
