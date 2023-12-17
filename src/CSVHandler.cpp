@@ -1,5 +1,6 @@
 #include "CSVHandler.h"
 
+
 CSVHandler::CSVHandler(const std::string& filename) : filename(filename) {}
 
 bool CSVHandler::readCSV(std::vector<std::vector<std::string>>& data) {
@@ -41,7 +42,7 @@ bool CSVHandler::readCSV(std::vector<std::vector<std::string>>& data) {
     return true;
 }
 
-bool CSVHandler::writeCSV(const std::vector<std::vector<std::string>>& data) {
+bool CSVHandler::writeCSV(const std::vector<ReportEntry>& data) {
     std::ofstream file(filename);
 
     if (!file.is_open()) {
@@ -49,14 +50,17 @@ bool CSVHandler::writeCSV(const std::vector<std::vector<std::string>>& data) {
         return false;
     }
 
-    for (const auto& row : data) {
-        for (size_t i = 0; i < row.size(); ++i) {
-            file << row[i];
-            if (i < row.size() - 1) {
-                file << ",";
-            }
-        }
-        file << "\n";
+    file << "client_order_id,order_id,instrument,side,quantity,price,status,reason\n";
+
+    for (const auto& entry : data) {
+        file << entry.client_order_id << ","
+             << entry.order_id << ","
+             << entry.instrument << ","
+             << entry.side << ","
+             << entry.quantity << ","
+             << entry.price << ","
+             << entry.status << ","
+             << entry.reason << "\n";
     }
 
     file.close();
