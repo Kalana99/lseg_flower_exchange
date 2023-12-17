@@ -19,9 +19,6 @@ void OrderBook::addOrder(Order entry, std::vector<ReportEntry> &ex_report, int p
             if (entry.quantity < std::stoi(this->buyOrder[0][1]))
             {
                 // no orderbook record - add both entries to report (fill and pfill)
-
-                // order book update on the buy column
-
                 ex_report.push_back(ReportEntry(
                     entry.client_order_id,
                     get_order_id(),
@@ -39,6 +36,8 @@ void OrderBook::addOrder(Order entry, std::vector<ReportEntry> &ex_report, int p
                     std::to_string(entry.quantity),
                     this->buyOrder[0][2],
                     std::to_string(static_cast<int>(MyGlobals::STATUS::PFILL))));
+
+                this->buyOrder[0][1] = std::to_string(std::stoi(this->buyOrder[0][1]) -  entry.quantity);
             }
             else if (entry.quantity == std::stoi(this->buyOrder[0][1]))
             {
