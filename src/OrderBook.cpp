@@ -11,6 +11,7 @@ void OrderBook::addOrder(Order entry, std::vector<ReportEntry> &ex_report, int p
 {
 
     std::vector<std::string> orderRow;
+    std::string orderId = get_order_id();
 
     if (static_cast<int>(entry.side) == static_cast<int>(MyGlobals::SIDES::SELL)) // sell order
     {
@@ -21,7 +22,7 @@ void OrderBook::addOrder(Order entry, std::vector<ReportEntry> &ex_report, int p
                 // no orderbook record - add both entries to report (fill and pfill)
                 ex_report.push_back(ReportEntry(
                     entry.client_order_id,
-                    get_order_id(),
+                    orderId,
                     entry.instrument,
                     std::to_string(entry.side),
                     std::to_string(entry.quantity),
@@ -30,7 +31,7 @@ void OrderBook::addOrder(Order entry, std::vector<ReportEntry> &ex_report, int p
 
                 ex_report.push_back(ReportEntry(
                     this->buyOrder[0].back(),
-                    this->buyOrder[0][0],
+                    orderId,
                     entry.instrument,
                     std::to_string(static_cast<int>(MyGlobals::SIDES::BUY)),
                     std::to_string(entry.quantity),
@@ -45,7 +46,7 @@ void OrderBook::addOrder(Order entry, std::vector<ReportEntry> &ex_report, int p
 
                 ex_report.push_back(ReportEntry(
                     entry.client_order_id,
-                    get_order_id(),
+                    orderId,
                     entry.instrument,
                     std::to_string(entry.side),
                     std::to_string(entry.quantity),
@@ -54,7 +55,7 @@ void OrderBook::addOrder(Order entry, std::vector<ReportEntry> &ex_report, int p
 
                 ex_report.push_back(ReportEntry(
                     this->buyOrder[0].back(),
-                    this->buyOrder[0][0],
+                    orderId,
                     entry.instrument,
                     std::to_string(static_cast<int>(MyGlobals::SIDES::BUY)),
                     std::to_string(entry.quantity),
@@ -86,7 +87,7 @@ void OrderBook::addOrder(Order entry, std::vector<ReportEntry> &ex_report, int p
 
                             ex_report.push_back(ReportEntry(
                                 entry.client_order_id,
-                                get_order_id(),
+                                orderId,
                                 entry.instrument,
                                 std::to_string(entry.side),
                                 this->buyOrder[0][1],
@@ -95,7 +96,7 @@ void OrderBook::addOrder(Order entry, std::vector<ReportEntry> &ex_report, int p
 
                             ex_report.push_back(ReportEntry(
                                 this->buyOrder[0].back(),
-                                this->buyOrder[0][0],
+                                orderId,
                                 entry.instrument,
                                 std::to_string(static_cast<int>(MyGlobals::SIDES::BUY)),
                                 this->buyOrder[0][1],
@@ -114,7 +115,7 @@ void OrderBook::addOrder(Order entry, std::vector<ReportEntry> &ex_report, int p
 
                             ex_report.push_back(ReportEntry(
                                 entry.client_order_id,
-                                get_order_id(),
+                                orderId,
                                 entry.instrument,
                                 std::to_string(entry.side),
                                 std::to_string(temp_qty),
@@ -123,7 +124,7 @@ void OrderBook::addOrder(Order entry, std::vector<ReportEntry> &ex_report, int p
 
                             ex_report.push_back(ReportEntry(
                                 this->buyOrder[0].back(),
-                                this->buyOrder[0][0],
+                                orderId,
                                 entry.instrument,
                                 std::to_string(static_cast<int>(MyGlobals::SIDES::BUY)),
                                 std::to_string(temp_qty),
@@ -142,7 +143,7 @@ void OrderBook::addOrder(Order entry, std::vector<ReportEntry> &ex_report, int p
 
                 // temp qty > 0 add sell order book entry
                 orderRow = {
-                    get_order_id(),
+                    orderId,
                     std::to_string(temp_qty),
                     this->buyOrder[0][2],
                     std::to_string(priority_num),
@@ -156,7 +157,7 @@ void OrderBook::addOrder(Order entry, std::vector<ReportEntry> &ex_report, int p
 
             ex_report.push_back(ReportEntry(
                 entry.client_order_id,
-                get_order_id(),
+                orderId,
                 entry.instrument,
                 std::to_string(entry.side),
                 std::to_string(entry.quantity),
@@ -164,7 +165,7 @@ void OrderBook::addOrder(Order entry, std::vector<ReportEntry> &ex_report, int p
                 std::to_string(static_cast<int>(MyGlobals::STATUS::NEW))));
 
             orderRow = {
-                get_order_id(),
+                orderId,
                 std::to_string(entry.quantity),
                 std::to_string(entry.price),
                 std::to_string(priority_num),
@@ -180,7 +181,7 @@ void OrderBook::addOrder(Order entry, std::vector<ReportEntry> &ex_report, int p
             {
                 ex_report.push_back(ReportEntry(
                     entry.client_order_id,
-                    get_order_id(),
+                    orderId,
                     entry.instrument,
                     std::to_string(entry.side),
                     std::to_string(entry.quantity),
@@ -189,7 +190,7 @@ void OrderBook::addOrder(Order entry, std::vector<ReportEntry> &ex_report, int p
 
                 ex_report.push_back(ReportEntry(
                     this->sellOrder[0].back(),
-                    this->sellOrder[0][0],
+                    orderId,
                     entry.instrument,
                     std::to_string(static_cast<int>(MyGlobals::SIDES::SELL)),
                     std::to_string(entry.quantity),
@@ -200,7 +201,7 @@ void OrderBook::addOrder(Order entry, std::vector<ReportEntry> &ex_report, int p
             {
                 ex_report.push_back(ReportEntry(
                     entry.client_order_id,
-                    get_order_id(),
+                    orderId,
                     entry.instrument,
                     std::to_string(entry.side),
                     std::to_string(entry.quantity),
@@ -209,7 +210,7 @@ void OrderBook::addOrder(Order entry, std::vector<ReportEntry> &ex_report, int p
 
                 ex_report.push_back(ReportEntry(
                     this->sellOrder[0].back(),
-                    this->sellOrder[0][0],
+                    orderId,
                     entry.instrument,
                     std::to_string(static_cast<int>(MyGlobals::SIDES::SELL)),
                     std::to_string(entry.quantity),
@@ -237,7 +238,7 @@ void OrderBook::addOrder(Order entry, std::vector<ReportEntry> &ex_report, int p
 
                             ex_report.push_back(ReportEntry(
                                 entry.client_order_id,
-                                get_order_id(),
+                                orderId,
                                 entry.instrument,
                                 std::to_string(entry.side),
                                 this->sellOrder[0][1],
@@ -246,7 +247,7 @@ void OrderBook::addOrder(Order entry, std::vector<ReportEntry> &ex_report, int p
 
                             ex_report.push_back(ReportEntry(
                                 this->sellOrder[0].back(),
-                                this->sellOrder[0][0],
+                                orderId,
                                 entry.instrument,
                                 std::to_string(static_cast<int>(MyGlobals::SIDES::SELL)),
                                 this->sellOrder[0][1],
@@ -265,7 +266,7 @@ void OrderBook::addOrder(Order entry, std::vector<ReportEntry> &ex_report, int p
 
                             ex_report.push_back(ReportEntry(
                                 entry.client_order_id,
-                                get_order_id(),
+                                orderId,
                                 entry.instrument,
                                 std::to_string(entry.side),
                                 std::to_string(temp_qty),
@@ -274,7 +275,7 @@ void OrderBook::addOrder(Order entry, std::vector<ReportEntry> &ex_report, int p
 
                             ex_report.push_back(ReportEntry(
                                 this->sellOrder[0].back(),
-                                this->sellOrder[0][0],
+                                orderId,
                                 entry.instrument,
                                 std::to_string(static_cast<int>(MyGlobals::SIDES::SELL)),
                                 std::to_string(temp_qty),
@@ -292,7 +293,7 @@ void OrderBook::addOrder(Order entry, std::vector<ReportEntry> &ex_report, int p
                 }
                 // temp qty > 0 add sell order book entry
                 orderRow = {
-                    get_order_id(),
+                    orderId,
                     std::to_string(temp_qty),
                     this->sellOrder[0][2],
                     std::to_string(priority_num),
@@ -304,7 +305,7 @@ void OrderBook::addOrder(Order entry, std::vector<ReportEntry> &ex_report, int p
         {
             ex_report.push_back(ReportEntry(
                 entry.client_order_id,
-                get_order_id(),
+                orderId,
                 entry.instrument,
                 std::to_string(entry.side),
                 std::to_string(entry.quantity),
@@ -312,7 +313,7 @@ void OrderBook::addOrder(Order entry, std::vector<ReportEntry> &ex_report, int p
                 std::to_string(static_cast<int>(MyGlobals::STATUS::NEW))));
 
             orderRow = {
-                get_order_id(),
+                orderId,
                 std::to_string(entry.quantity),
                 std::to_string(entry.price),
                 std::to_string(priority_num),

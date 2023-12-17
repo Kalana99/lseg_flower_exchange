@@ -16,7 +16,7 @@
 using namespace std;
 
 
-int MyGlobals::ORDER_ID = 0;
+int MyGlobals::ORDER_ID = 1;
 
 int main() {
 
