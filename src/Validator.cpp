@@ -1,44 +1,30 @@
 #include "Validator.h"
 #include "Globals.h"
 
-Validator::Validator(std::vector<std::string> row) : row(row), reason("empty") {}
+Validator::Validator() : reason("empty") {}
 
-bool Validator:: validate(std::set<std::string> INSTRUMENTS) {
+bool Validator:: validate(std::vector<std::string> row) {
 
-    if (!validate_non_empty(row)) {
-        reason = "One or more fields are empty";
-        return false;
-    }
-
-    if (!validate_instrument(INSTRUMENTS, row[1])) {
+    if (row[1].empty() || !validate_instrument(MyGlobals::INSTRUMENTS, row[1])) {
         reason = "Invalid instrument";
         return false;
     }
 
-    if (!validate_side(std::stoi(row[2]))) {
+    if (row[2].empty() || !validate_side(std::stoi(row[2]))) {
         reason = "Invalid side";
         return false;
     }
 
-    if (!validate_quantity(std::stoi(row[3]))) {
+    if (row[3].empty() || !validate_quantity(std::stoi(row[3]))) {
         reason = "Invalid quantity";
         return false;
     }
 
-    if (!validate_price(std::stod(row[4]))) {
+    if (row[4].empty() || !validate_price(std::stod(row[4]))) {
         reason = "Invalid price";
         return false;
     }
 
-    return true;
-}
-
-// validate non empty function
-bool Validator:: validate_non_empty(std::vector<std::string> row) {
-
-    if (row.size() != 5) {
-        return false;
-    }
     return true;
 }
 
